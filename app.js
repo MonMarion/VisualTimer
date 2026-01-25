@@ -1,11 +1,9 @@
 // DOM Elements
-const hoursDisplay = document.getElementById('hours');
 const minutesDisplay = document.getElementById('minutes');
 const secondsDisplay = document.getElementById('seconds');
 const timerDisplay = document.querySelector('.timer-display');
 const progressCircle = document.getElementById('progress-circle');
 
-const inputHours = document.getElementById('input-hours');
 const inputMinutes = document.getElementById('input-minutes');
 const inputSeconds = document.getElementById('input-seconds');
 
@@ -110,11 +108,9 @@ function updateDisplay() {
         maxSeconds = getInputSeconds();
     }
 
-    const hours = Math.floor(displaySeconds / 3600);
-    const minutes = Math.floor((displaySeconds % 3600) / 60);
+    const minutes = Math.floor(displaySeconds / 60);
     const seconds = displaySeconds % 60;
 
-    hoursDisplay.textContent = formatNumber(hours);
     minutesDisplay.textContent = formatNumber(minutes);
     secondsDisplay.textContent = formatNumber(seconds);
 
@@ -139,15 +135,13 @@ function updateDisplay() {
 
 // Get total seconds from inputs
 function getInputSeconds() {
-    const hours = parseInt(inputHours.value) || 0;
     const minutes = parseInt(inputMinutes.value) || 0;
     const seconds = parseInt(inputSeconds.value) || 0;
-    return (hours * 3600) + (minutes * 60) + seconds;
+    return (minutes * 60) + seconds;
 }
 
 // Set inputs enabled/disabled
 function setInputsEnabled(enabled) {
-    inputHours.disabled = !enabled;
     inputMinutes.disabled = !enabled;
     inputSeconds.disabled = !enabled;
 }
@@ -360,7 +354,7 @@ document.querySelectorAll('.input-group input').forEach(input => {
 });
 
 // Input validation and sync
-[inputHours, inputMinutes, inputSeconds].forEach(input => {
+[inputMinutes, inputSeconds].forEach(input => {
     input.addEventListener('input', () => {
         let value = parseInt(input.value) || 0;
         const max = parseInt(input.max);

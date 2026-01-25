@@ -9,49 +9,40 @@
 <body>
     <div class="container">
         <div class="timer-display">
-            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+            <span id="minutes">00</span>:<span id="seconds">00</span>
         </div>
 
-        <div class="progress-section">
-            <button id="subtract-btn" class="btn btn-adjust">
-                <svg viewBox="0 0 100 100" class="arrow-icon">
-                    <path class="arrow-curve" d="M 50 80 A 30 30 0 0 0 50 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                    <polygon class="arrow-head" points="38,20 50,12 50,28" fill="currentColor"/>
-                    <text x="50" text-anchor="middle" class="arrow-text">
-                        <tspan x="50" dy="46">-5</tspan>
-                        <tspan x="50" dy="14">sec</tspan>
-                    </text>
-                </svg>
-            </button>
-            <div class="progress-ring">
-                <svg viewBox="0 0 200 200">
-                    <circle class="progress-bg" cx="100" cy="100" r="90"></circle>
-                    <circle class="progress" id="progress-circle" cx="100" cy="100" r="90"></circle>
-                </svg>
-            </div>
+        <div class="progress-ring">
+            <svg viewBox="0 0 200 200">
+                <circle class="progress-bg" cx="100" cy="100" r="90"></circle>
+                <circle class="progress" id="progress-circle" cx="100" cy="100" r="90"></circle>
+            </svg>
+        </div>
+
+        <div class="adjust-buttons">
             <button id="add-btn" class="btn btn-adjust">
                 <svg viewBox="0 0 100 100" class="arrow-icon">
-                    <path class="arrow-curve" d="M 50 80 A 30 30 0 0 1 50 20" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
-                    <polygon class="arrow-head" points="62,20 50,12 50,28" fill="currentColor"/>
-                    <text x="50" text-anchor="middle" class="arrow-text">
-                        <tspan x="50" dy="46">+5</tspan>
-                        <tspan x="50" dy="14">sec</tspan>
-                    </text>
+                    <path class="arrow-curve" d="M 50 20 A 30 30 0 0 1 50 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <polygon class="arrow-head" points="38,80 50,72 50,88" fill="currentColor"/>
+                    <text x="50" y="55" text-anchor="middle" class="arrow-text">+5</text>
+                </svg>
+            </button>
+            <button id="subtract-btn" class="btn btn-adjust">
+                <svg viewBox="0 0 100 100" class="arrow-icon">
+                    <path class="arrow-curve" d="M 50 20 A 30 30 0 0 0 50 80" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                    <polygon class="arrow-head" points="62,80 50,72 50,88" fill="currentColor"/>
+                    <text x="50" y="55" text-anchor="middle" class="arrow-text">-5</text>
                 </svg>
             </button>
         </div>
 
         <div class="input-group">
             <label>
-                <input type="number" id="input-hours" min="0" max="99" value="0" placeholder="0">
-                <span>Hours</span>
-            </label>
-            <label>
-                <input type="number" id="input-minutes" min="0" max="59" value="5" placeholder="0">
+                <input type="number" id="input-minutes" min="0" max="59" value="1" placeholder="0">
                 <span>Minutes</span>
             </label>
             <label>
-                <input type="number" id="input-seconds" min="0" max="59" value="0" placeholder="0">
+                <input type="number" id="input-seconds" min="0" max="59" value="30" placeholder="0">
                 <span>Seconds</span>
             </label>
         </div>
