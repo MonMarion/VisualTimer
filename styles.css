@@ -263,7 +263,7 @@ body {
     }
 
     .adjust-buttons {
-        gap: 0;
+        gap: 50px;
     }
 
     .btn-adjust {
