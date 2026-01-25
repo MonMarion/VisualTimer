@@ -10,7 +10,8 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 30px;
     color: #fff;
 }
 
@@ -245,7 +246,6 @@ body {
 
 @media (max-width: 480px) {
     body {
-        align-items: flex-start;
         padding-top: 20px;
     }
 
