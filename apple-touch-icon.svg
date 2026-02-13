@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <!-- Background gradient matching app -->
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="50%" style="stop-color:#16213e"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#bg)"/>
+
+  <!-- Progress wedge (behind) - shows ~66% remaining -->
+  <path d="M90,95 L90,35 A60,60 0 1,1 60,147 Z" fill="#4ecdc4"/>
+
+  <!-- Stopwatch button/stem -->
+  <rect x="80" y="12" width="20" height="25" rx="4" fill="#fff"/>
+
+  <!-- Small side button -->
+  <rect x="130" y="32" width="14" height="8" rx="2" fill="#fff" transform="rotate(45 137 36)"/>
+
+  <!-- Outer circle (ring) -->
+  <circle cx="90" cy="95" r="60" fill="none" stroke="#fff" stroke-width="10"/>
+</svg>
