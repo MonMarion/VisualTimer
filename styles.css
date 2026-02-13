@@ -15,7 +15,23 @@ body {
     color: #fff;
 }
 
-.container {
+/* Card Flip Container */
+.card-container {
+    perspective: 1000px;
+}
+
+.card {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    backface-visibility: hidden;
     text-align: center;
     padding: 25px;
     background: rgba(255, 255, 255, 0.05);
@@ -24,6 +40,46 @@ body {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
+.card-front {
+    position: relative;
+}
+
+.card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotateY(180deg);
+    overflow-y: auto;
+}
+
+/* Settings Button */
+.settings-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.settings-btn:hover {
+    color: #4ecdc4;
+    transform: rotate(45deg);
+}
+
+.settings-btn svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Timer Display */
 .timer-display {
     font-size: 4rem;
     font-weight: 200;
@@ -37,6 +93,7 @@ body {
     min-width: 80px;
 }
 
+/* Adjust Buttons */
 .adjust-buttons {
     display: flex;
     justify-content: center;
@@ -86,6 +143,7 @@ body {
     fill: currentColor;
 }
 
+/* Progress Ring */
 .progress-ring {
     width: 200px;
     height: 200px;
@@ -124,6 +182,7 @@ body {
     stroke: #e74c3c;
 }
 
+/* Input Group */
 .input-group {
     display: flex;
     justify-content: center;
@@ -168,6 +227,7 @@ body {
     opacity: 0.7;
 }
 
+/* Controls */
 .controls {
     display: flex;
     justify-content: center;
@@ -230,6 +290,120 @@ body {
     box-shadow: 0 4px 20px rgba(149, 165, 166, 0.4);
 }
 
+/* Settings Page */
+.settings-title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-label {
+    font-size: 1rem;
+    opacity: 0.9;
+}
+
+.setting-section {
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.setting-section .setting-label {
+    display: block;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.setting-section .input-group {
+    margin-bottom: 0;
+}
+
+/* Mute Toggle */
+.mute-toggle {
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: #4ecdc4;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mute-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #4ecdc4;
+}
+
+.mute-toggle svg {
+    width: 100%;
+    height: 100%;
+}
+
+.mute-toggle .icon-sound-off {
+    display: none;
+}
+
+.mute-toggle.muted .icon-sound-on {
+    display: none;
+}
+
+.mute-toggle.muted .icon-sound-off {
+    display: block;
+    color: #e74c3c;
+}
+
+/* Preset Grid */
+.preset-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.preset-btn {
+    padding: 10px 5px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.preset-btn:hover {
+    background: rgba(78, 205, 196, 0.3);
+    border-color: #4ecdc4;
+}
+
+.preset-btn:active {
+    transform: scale(0.95);
+}
+
+/* Done Button */
+.btn-done {
+    margin-top: 20px;
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+    color: #fff;
+    width: 100%;
+}
+
+.btn-done:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(78, 205, 196, 0.4);
+}
+
+/* Animations */
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.02); }
@@ -244,15 +418,16 @@ body {
     animation: pulse 0.5s ease-in-out infinite;
 }
 
+/* Mobile Styles */
 @media (max-width: 480px) {
     body {
         padding-top: 10px;
     }
 
-    .container {
+    .card-face {
         padding: 25px;
         margin: 10px;
-        width: calc(100% - 20px);
+        width: calc(100vw - 20px);
     }
 
     .timer-display {
@@ -291,7 +466,6 @@ body {
 
     .input-group {
         gap: 25px;
-        margin-bottom: 20px;
     }
 
     .input-group input {
@@ -316,5 +490,22 @@ body {
     .btn-play-pause svg {
         width: 28px;
         height: 28px;
+    }
+
+    .preset-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .preset-btn {
+        padding: 12px 4px;
+        font-size: 0.9rem;
+    }
+
+    .settings-btn {
+        width: 28px;
+        height: 28px;
+        top: 12px;
+        right: 12px;
     }
 }

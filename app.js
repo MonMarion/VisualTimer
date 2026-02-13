@@ -13,6 +13,13 @@ const subtractBtn = document.getElementById('subtract-btn');
 const addBtn = document.getElementById('add-btn');
 const progressRing = document.querySelector('.progress-ring');
 
+// Settings DOM Elements
+const card = document.getElementById('card');
+const settingsBtn = document.getElementById('settings-btn');
+const doneBtn = document.getElementById('done-btn');
+const muteToggle = document.getElementById('mute-toggle');
+const presetBtns = document.querySelectorAll('.preset-btn');
+
 // Timer state
 let totalSeconds = 0;        // Total time (from inputs, set when timer starts)
 let remainingSeconds = 0;    // Current remaining time
@@ -24,6 +31,7 @@ let timerStarted = false;    // Has the timer been started at least once?
 // Audio state
 let audioContext = null;
 let isTick = true;           // Alternates between tick and tock
+let isMuted = false;         // Mute toggle state
 
 // Get or create audio context
 function getAudioContext() {
@@ -35,6 +43,8 @@ function getAudioContext() {
 
 // Play a single tick or tock sound
 function playSingleTick(volume) {
+    if (isMuted) return;
+
     try {
         const ctx = getAudioContext();
         const oscillator = ctx.createOscillator();
@@ -57,18 +67,11 @@ function playSingleTick(volume) {
     }
 }
 
-// Play tick-tock sound with volume based on remaining time
+// Play tick-tock sound
 function playTickTock(secondsLeft) {
-    if (secondsLeft > 30 || secondsLeft <= 0) return;
+    if (secondsLeft <= 0) return;
 
-    // Calculate volume: low at 30s, max at 10s and below
-    let volume;
-    if (secondsLeft <= 10) {
-        volume = 0.4;  // Max volume for final 10 seconds
-    } else {
-        // Linear interpolation from 0.05 at 30s to 0.4 at 10s
-        volume = 0.05 + (0.35 * (30 - secondsLeft) / 20);
-    }
+    const volume = 0.3;  // Constant volume
 
     // Play first tick-tock
     playSingleTick(volume);
@@ -152,8 +155,8 @@ function tick() {
         remainingSeconds--;
         updateDisplay();
 
-        // Play tick-tock sound in final 30 seconds
-        if (remainingSeconds <= 30 && remainingSeconds > 0) {
+        // Play tick-tock sound
+        if (remainingSeconds > 0) {
             playTickTock(remainingSeconds);
         }
     }
@@ -175,7 +178,9 @@ function timerComplete() {
     playPauseBtn.disabled = true;
     playPauseBtn.classList.remove('playing');
 
-    // Play notification sound (if available)
+    // Play notification sound (if available and not muted)
+    if (isMuted) return;
+
     try {
         const ctx = getAudioContext();
         const gainNode = ctx.createGain();
@@ -327,14 +332,8 @@ function addTime() {
 // Sync starting time when inputs change
 function syncStartingTime() {
     const inputTotal = getInputSeconds();
-    // Cap startingSeconds to not exceed input total
-    if (startingSeconds > inputTotal) {
-        startingSeconds = inputTotal;
-    }
-    // If startingSeconds is 0 and we have input, set it to input total
-    if (startingSeconds === 0 && inputTotal > 0) {
-        startingSeconds = inputTotal;
-    }
+    // Set startingSeconds to match the input total
+    startingSeconds = inputTotal;
     updateDisplay();
 }
 
@@ -411,6 +410,46 @@ function handleRingClick(e) {
 }
 
 progressRing.addEventListener('click', handleRingClick);
+
+// Card flip functions
+function flipToSettings() {
+    card.classList.add('flipped');
+}
+
+function flipToTimer() {
+    card.classList.remove('flipped');
+}
+
+// Mute toggle
+function toggleMute() {
+    isMuted = !isMuted;
+    muteToggle.classList.toggle('muted', isMuted);
+}
+
+// Handle preset button click
+function handlePresetClick(e) {
+    const totalTime = parseInt(e.target.dataset.time);
+    if (isNaN(totalTime)) return;
+
+    // Set the input fields
+    const mins = Math.floor(totalTime / 60);
+    const secs = totalTime % 60;
+    inputMinutes.value = mins;
+    inputSeconds.value = secs;
+
+    // Sync starting time
+    syncStartingTime();
+}
+
+// Settings event listeners
+settingsBtn.addEventListener('click', flipToSettings);
+doneBtn.addEventListener('click', flipToTimer);
+muteToggle.addEventListener('click', toggleMute);
+
+// Preset button listeners
+presetBtns.forEach(btn => {
+    btn.addEventListener('click', handlePresetClick);
+});
 
 // Initialize
 startingSeconds = getInputSeconds();
