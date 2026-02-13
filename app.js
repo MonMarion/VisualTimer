@@ -16,7 +16,7 @@ const progressRing = document.querySelector('.progress-ring');
 // Settings DOM Elements
 const card = document.getElementById('card');
 const settingsBtn = document.getElementById('settings-btn');
-const doneBtn = document.getElementById('done-btn');
+const backBtn = document.getElementById('back-btn');
 const muteToggle = document.getElementById('mute-toggle');
 const presetBtns = document.querySelectorAll('.preset-btn');
 
@@ -443,7 +443,7 @@ function handlePresetClick(e) {
 
 // Settings event listeners
 settingsBtn.addEventListener('click', flipToSettings);
-doneBtn.addEventListener('click', flipToTimer);
+backBtn.addEventListener('click', flipToTimer);
 muteToggle.addEventListener('click', toggleMute);
 
 // Preset button listeners
